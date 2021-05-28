@@ -10,13 +10,15 @@ def prompt
       @page_info += 1
       break
     elsif %w[q].include?(text_input)
-      puts 'Thanks for trusting our source!'.blue.bold
-      puts 'Thank you for your time!'.green.bold
+      puts "Thanks for trusting our source!".blue.bold
+      puts "Thank you for your time!".green.bold
       exit
     else
-      puts 'Sorry! Please enter a valid character \n\n!'.red.bold
-      puts 'Press \n 'y' to continue \n \n'
+      puts "Sorry! Please enter a valid character \n \n!".red.bold
+      puts "Press \n 'y' to continue \n \n"
+      puts "Type \n 'q' to quit \n \n"
+      text_input
     end
-    
+    text_input
   end
 end
