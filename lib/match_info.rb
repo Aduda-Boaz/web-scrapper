@@ -9,7 +9,7 @@ class Page < Scraper
   end
   
   def begin
-    content_url = ""
+    content_url = "https://www.bbc.com/sport/football/tables&page=#{@page}&index=prod_all_products_term_optimization"
     content_doc = ::Watir::Browser.new
     content_doc.element(css: 'li.ais-InfiniteHits-item').wait_until(&:present?)
     content_doc = content_doc.element(css: '#rendered-content')
@@ -19,7 +19,17 @@ class Page < Scraper
   end
   
   def scraper
-    
+    @list = []
+    content_matches_list = start
+    content_matches_list.each do |match_listing|
+      matches = {
+        match: match_listing.css('h2.color-primary-text').text,
+        league: match_listing.css('span.league-name').text,
+        result: match_listing.css('div.match-result-row').text,
+      }
+      @list.push(matches)
+    end
+    @page += 1
   end
   
 end

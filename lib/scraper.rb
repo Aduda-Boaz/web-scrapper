@@ -1,6 +1,9 @@
 require 'nokogiri'
 require 'watir'
+require 'rubocop'
 
+
+#Scraper class
 class Scraper
   attr_reader :link
 
@@ -22,8 +25,12 @@ class Scraper
 
   private
 
-  def method_name
-    
+  def pages(parsed_page = nil, matches_list = nil)
+    @page = 1
+    per_page = matches_list.count
+    per_page = 1 if per_page.zero?
+    @max = parsed_page.css('h2.rc-NumberOfResultsSection span').text.gsub(/[^\d]/, '').to_i
+    @last_page = (@max / per_page)
   end
   
 end

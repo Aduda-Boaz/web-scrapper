@@ -22,3 +22,30 @@ def prompt
     text_input
   end
 end
+
+def info
+  @scraper = Scraper.new('https://www.bbc.com/sport/football/tables')
+  @scraper.start
+  @max = @scraper.instance_variable_get(:@max)
+  @last_page = @scraper.instance_variable_get(:@last_page)
+  puts "Get the #{@max} latest scores in #{@last_page} pages".blue.bold.underline
+  puts "Loading...".green.bold
+  sleep(0.25)
+  @page = 1
+  @collect = Page.new(@max, @page)
+end
+
+def output
+  info
+  while @page <= @max
+    puts "\t Page Number: #{@page} \n \n"
+    sleep 0.25
+    @collect.scraper
+    list = @collect.instance_variable_get(:@list)
+    i = 0
+    while i < list.count
+      puts "Latest live scores \n \n"
+      puts "  "
+    end
+  end
+end
