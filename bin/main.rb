@@ -45,7 +45,15 @@ def output
     i = 0
     while i < list.count
       puts "Latest live scores \n \n"
-      puts "  "
+      puts "Match: #{list[i][:match]}".blue.bold
+      puts "League: #{list[i][:league]}".green.bold
+      puts "Result: #{list[i][:result]}".red.bold
+      puts ''
+      sleep(0.1)
+      i += 1
     end
+    prompt
+    sleep(0.25)
   end
 end
+output
