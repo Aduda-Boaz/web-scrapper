@@ -1,7 +1,7 @@
 require_relative '../lib/scraper'
 
 describe "Scraper" do
-  let(:scrper) { Scraper.new('https://www.bbc.com/sport/football/tables') }
+  let(:scraper) { Scraper.new('https://www.bbc.com/sport/football/tables') }
 
   describe "#begin" do
     it 'returns the begin method with true' do
