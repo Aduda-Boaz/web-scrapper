@@ -22,11 +22,11 @@ class Page < Scraper
     @list = []
     content_matches_list = start
     content_matches_list.each do |match_listing|
-      matches = {
+      matches = [{
         match: match_listing.css('h2.color-primary-text').text
-        league: match_listing.css('span.league-name').text
-        result: match_listing.css('div.match-result-row').text
-      }
+        league_name: match_listing.css('span.league-name').text
+        match_result: match_listing.css('div.match-result-row').text
+      }]
       @list.push(matches)
     end
     @page += 1

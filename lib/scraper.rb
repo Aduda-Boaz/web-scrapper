@@ -3,7 +3,7 @@ require 'watir'
 require 'rubocop'
 require 'rspec'
 
-#Scraper class
+# Scraper class
 class Scraper
   attr_reader :link
 
@@ -20,7 +20,7 @@ class Scraper
     html_raw = doc.inner_html
     parsed_page = Nokodiri::HTML(html_raw)
     matches_list = parsed_page.css('div.card-content')
-    pages(parsed_page, matches_list)  
+    pages(parsed_page, matches_list)
   end
 
   private
@@ -32,5 +32,4 @@ class Scraper
     @max = parsed_page.css('h2.rc-NumberOfResultsSection span').text.gsub(/[^\d]/, '').to_i
     @last_page = (@max / per_page)
   end
-  
 end

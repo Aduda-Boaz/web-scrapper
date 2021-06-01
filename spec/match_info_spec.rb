@@ -20,13 +20,12 @@ describe 'Page' do
     it 'check the web pages and return match informations' do
       list = [{
         match: 'Manchester City vs Everton',
-        league: 'Premier League',
-        result: 'Manchester City 5 - 0 Everton'
+        league_name: 'Premier League',
+        match_result: 'Manchester City 5 - 0 Everton'
         url: 'https://www.bbc.com/sport/football/premier-league'
       }]
       allow(value).to receive(:scraper).and_return(list)
       expect(value.scraper).to eql(list)
     end
-  end
-  
+  end  
 end

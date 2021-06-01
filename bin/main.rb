@@ -28,11 +28,11 @@ end
 
 def info
   @scraper = Scraper.new('https://www.bbc.com/sport/football/tables')
-  @scraper.begin 
+  @scraper.begin
   @max = @scraper.instance_variable_get(:@max)
   @last_page = @scraper.instance_variable_get(:@last_page)
   puts "Get the #{@max} latest scores in #{@last_page} pages".blue.bold.underline
-  puts 'Loading....'green.bold
+  puts 'Loading....'.green.bold
   sleep(0.25)
   @page = 1
   @collect = Page.new(@max, @page)
