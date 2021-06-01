@@ -1,4 +1,7 @@
-require_relative '../lib/page_info'
+require_relative '../lib/match_info'
+require 'colorize'
+scraper = Scraper.new('https://www.bbc.com/sport/football/tables')
+scraper.begin
 
 def prompt
   puts "Welcome to the most trusted football information center \n \n"
@@ -25,7 +28,7 @@ end
 
 def info
   @scraper = Scraper.new('https://www.bbc.com/sport/football/tables')
-  @scraper.start
+  @scraper.begin 
   @max = @scraper.instance_variable_get(:@max)
   @last_page = @scraper.instance_variable_get(:@last_page)
   puts "Get the #{@max} latest scores in #{@last_page} pages".blue.bold.underline

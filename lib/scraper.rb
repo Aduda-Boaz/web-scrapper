@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'watir'
 require 'rubocop'
-
+require 'rspec'
 
 #Scraper class
 class Scraper
