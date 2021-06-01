@@ -1,11 +1,11 @@
 require_relative '../lib/match_info'
 require_relative '../lib/scraper'
 
-describe "Page" do
+describe 'Page' do
   let(:scraper) { Scraper.new('https://www.bbc.com/sport/football/tables') }
   let(:value) { Page.new(20, 1) }
 
-  describe "#begin" do
+  describe '#begin' do
     it 'returns the begin method with true value' do
       allow(value).to receive(:start).and_return(true)
       expect(value.start).to eql(true)
@@ -16,7 +16,7 @@ describe "Page" do
     end
   end
   
-  describe "#scraper" do
+  describe '#scraper' do
     it 'check the web pages and return match informations' do
       list = [{
         match: 'Manchester City vs Everton',

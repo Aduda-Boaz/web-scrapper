@@ -4,7 +4,7 @@ scraper = Scraper.new('https://www.bbc.com/sport/football/tables')
 scraper.begin
 
 def prompt
-  puts "Welcome to the most trusted football information center \n \n"
+  puts 'Welcome to the most trusted football information center \n \n'
   puts "To continue \n Press 'y' \n \n"
   puts "To quit \n Type 'q' \n \n"
   loop do
@@ -13,8 +13,8 @@ def prompt
       @page_info += 1
       break
     elsif %w[q].include?(text_input)
-      puts "Thanks for trusting our source!".blue.bold
-      puts "Thank you for your time!".green.bold
+      puts 'Thanks for trusting our source!'.blue.bold
+      puts 'Thank you for your time!'.green.bold
       exit
     else
       puts "Sorry! Please enter a valid character \n \n!".red.bold
@@ -32,7 +32,7 @@ def info
   @max = @scraper.instance_variable_get(:@max)
   @last_page = @scraper.instance_variable_get(:@last_page)
   puts "Get the #{@max} latest scores in #{@last_page} pages".blue.bold.underline
-  puts "Loading...".green.bold
+  puts 'Loading....'green.bold
   sleep(0.25)
   @page = 1
   @collect = Page.new(@max, @page)
