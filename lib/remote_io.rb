@@ -7,14 +7,14 @@ class RemoteJobs < Scraper
   attr_accessor :url
 
   def initialize(val_arr)
-    @arr = arr
+    @val_arr = val_arr
     @result = ['Job_title, Company, Skills, Posted_time, URL']
     @url = 'https://remotive.io/remote-jobs?s='
     @val_url = %w[ruby ruby-on-rails javascript reactjs python php]
   end
 
   def start
-    puts "Selected #{val_arr.map{ |n| @val_url[n] }.join(' & ')}"
+    # puts "Selected #{@val_arr.map { |n| @val_url[n] }.join(' & ')}"
     @url = url_parser(@val_arr)
     page_start_val = (1..5).to_a
     scraping_page(page_start_val)
@@ -24,7 +24,7 @@ class RemoteJobs < Scraper
   private
 
   def url_parser(arr)
-    @url + arr.map { |n| val_url[n].join(',') }
+    @val_url + @val_arr.map { |n| @val_url[n].join(',') }
   end
 
   def job_list(arr)

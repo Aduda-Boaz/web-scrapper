@@ -21,7 +21,7 @@ site = nil
 
 if text_input == 'remotive.io'
   url = 'https://remotive.io/remote-jobs'
-  site = RemotiveScraper.new(url)
+  site = RemoteJobs.new(url)
   
 elsif
   puts 'Welcome to the the web-scraper :)'
@@ -38,8 +38,7 @@ elsif
    break if num.all? { |i| i <= 9 && i >= 0 }
      puts 'Kindly enter a valid search key'
    end
-   site = RemotiveScraper.new(num) 
+   site = RemoteJobs.new(num) 
  end
 
- site.scrap
- 
+ site.start
