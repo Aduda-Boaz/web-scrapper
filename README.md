@@ -62,11 +62,6 @@ git clone https://github.com/Aduda-Boaz/Capstone2-web-scrapper
 
    7. Run command `rspec <file name>`  to test the various methods in the classes.
 
-## Running the scraper
-
-    When you run the project it will show you free courses available on the selected page through your browser, then prompts the user to see more or stop. If you want to see more results you can press the 'y' button or 'Enter/Return' key. If you want to stop or found a job that matches you, then press the 'n' or 'q' button. The scraping process will be stopped.
-    In the free courses available you can be able to see Partner, Course, Level, Enrollment to the course.
-
 # Contributing
 
 Contributions, issues and feature requests are welcome!
