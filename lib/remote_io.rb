@@ -1,4 +1,4 @@
-require_relative '../lib/scraper'
+require_relative './lib/scraper'
 
 class Page < Scraper
   attr_reader :max, :page

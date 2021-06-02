@@ -1,6 +1,5 @@
-require_relative '../lib/match_info'
-require 'colorize'
-scraper = Scraper.new('https://www.bbc.com/sport/football/tables')
+require_relative './lib/remote_io'
+
 scraper.begin
 
 def prompt
