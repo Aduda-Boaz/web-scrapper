@@ -1,34 +1,51 @@
-require_relative './lib/scraper'
+require_relative './scraper'
+require 'nokogiri'
+require 'httparty'
 
-class Page < Scraper
-  attr_reader :max, :page
+# Get the remote jobs from the site
+class RemoteJobs < Scraper
+  attr_accessor :url
 
-  def initialize(max, page)
-    super(max)
-    @page = page
+  def initialize(val_arr)
+    @arr = arr
+    @result = ['Job_title, Company, Skills, Posted_time, URL']
+    @url = ''
+    @val_url = %w[ruby ruby-on-rails javascript reactjs python php]
   end
-  
-  def begin
-    url = "https://www.bbc.com/sport/football/tables&page=#{@page}&index=prod_all_products_term_optimization"
-    content_doc = ::Watir::Browser.new
-    content_doc.element(css: 'li.ais-InfiniteHits-item').wait_until(&:present?)
-    content_doc = content_doc.element(css: '#rendered-content')
-    content_unparsed_page = content_doc.inner_html
-    content_parsed_page = Nokogiri::HTML(content_unparsed_page)
-    content_parsed_page.css('li.ais-InfiniteHits-item')
+
+  def start
+    puts "Selected #{val_arr.map{ |n| @val_url[n] }.join(' & ')}"
+    @url = url_parser(@val_arr)
+    page_start_val = (1..5).to_a
+    scraping_page(page_start_val)
+    read('remote_io.csv', @result, 'jobs')
   end
-  
-  def scraper
-    @list = []
-    content_matches_list = start
-    content_matches_list.each do |match_listing|
-      matches = [{
-        match: match_listing.css('h2.color-primary-text').text
-        league_name: match_listing.css('span.league-name').text
-        match_result: match_listing.css('div.match-result-row').text
-      }]
-      @list.push(matches)
+
+  private
+
+  def url_parser(arr)
+    @url + arr.map { |n| val_url[n].join(',') }
+  end
+
+  def job_list(arr)
+    arr.each do |card|
+      job_title = card.css('h3.job-listing-title').text.delete(',')
+      company = card.css('div.job-listing-footer').text.split('  ')[2].delete(',')
+      skills = card.css('div.job-listing-footer').text.split('  ')[4]
+      posted_time = card.css('div.job-listing-footer').text.split('  ')[3].delete(',').match(/\d+ \w+ ago/)
+      url = 'https://remotive.io/' + card.css('a')[0].attributes['href'].value
+      @result << "#{job_title},#{company},#{skills},#{posted_time},#{url}"
     end
-    @page += 1
-  end 
+  end
+
+  def page_scrap(pg_arr)
+    pg_arr.each do |page|
+      pg_url = @url + "&p=#{page}"
+      job_listings = parsing_page(page_url).css('div.job_listing-description')
+      break if job_listings.empty?
+      add_job(job_listings)
+      puts "#{@result.length - 1} jobs available..."     
+    end
+  end
+  
 end
