@@ -1,61 +1,45 @@
-require_relative './lib/remote_io'
+#!/usr/bin/env ruby
 
-scraper.begin
+require_relative '../lib/remote_io'
 
-def prompt
-  puts 'Welcome to the most trusted football information center \n \n'
-  puts "To continue \n Press 'y' \n \n"
-  puts "To quit \n Type 'q' \n \n"
-  loop do
-    text_input = gets.chomp.downcase
-    if ['y', ''].include?(text_input)
-      @page_info += 1
-      break
-    elsif %w[q].include?(text_input)
-      puts 'Thanks for trusting our source!'.blue.bold
-      puts 'Thank you for your time!'.green.bold
-      exit
-    else
-      puts "Sorry! Please enter a valid character \n \n!".red.bold
-      puts "Press \n 'y' to continue \n \n"
-      puts "Type \n 'q' to quit \n \n"
-      text_input
-    end
-    text_input
-  end
+title = <<~ALL
+
+ALL
+puts title
+puts 'Welcome to the Remote Jobs Information'
+puts 'Select what you need (remotive.io)'
+text_input = ''
+
+loop do
+  text_input = gets.chomp
+  break if ['remotive.io'].include?(text_input)
+
+  puts 'Kindly enter the correct choice'
 end
 
-def info
-  @scraper = Scraper.new('https://www.bbc.com/sport/football/tables')
-  @scraper.begin
-  @max = @scraper.instance_variable_get(:@max)
-  @last_page = @scraper.instance_variable_get(:@last_page)
-  puts "Get the #{@max} latest scores in #{@last_page} pages".blue.bold.underline
-  puts 'Loading....'.green.bold
-  sleep(0.25)
-  @page = 1
-  @collect = Page.new(@max, @page)
-end
+site = nil
 
-def output
-  info
-  while @page <= @max
-    puts "\t Page Number: #{@page} \n \n"
-    sleep 0.25
-    @collect.scraper
-    list = @collect.instance_variable_get(:@list)
-    i = 0
-    while i < list.count
-      puts "Latest live scores \n \n"
-      puts "Match: #{list[i][:match]}".blue.bold
-      puts "League: #{list[i][:league]}".green.bold
-      puts "Result: #{list[i][:result]}".red.bold
-      puts ''
-      sleep(0.1)
-      i += 1
-    end
-    prompt
-    sleep(0.25)
-  end
-end
-output
+if text_input == 'remotive.io'
+  url = 'https://remotive.io/remote-jobs'
+  site = RemotiveScraper.new(url)
+  
+elsif
+  puts 'Welcome to the the web-scraper :)'
+  puts 'Search using the key words as follows'
+  puts '-----------------------------------------------------------------'
+  puts '0:ruby, 1: javascript, 2: ruby-on-rails, 3: reactjs, 4: python, 5: php'
+  puts '-----------------------------------------------------------------'
+  puts 'Please enter correct entry (eg. 124 for javascript, ruby-on-rails, and python)'
+
+ num = nil
+
+ loop do
+   num = gets.chomp.split('').map(&:to_i)
+   break if num.all? { |i| i <= 9 && i >= 0 }
+     puts 'Kindly enter a valid search key'
+   end
+   site = RemotiveScraper.new(num) 
+ end
+
+ site.scrap
+ 

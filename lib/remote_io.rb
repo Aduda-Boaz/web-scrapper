@@ -9,7 +9,7 @@ class RemoteJobs < Scraper
   def initialize(val_arr)
     @arr = arr
     @result = ['Job_title, Company, Skills, Posted_time, URL']
-    @url = ''
+    @url = 'https://remotive.io/remote-jobs?s='
     @val_url = %w[ruby ruby-on-rails javascript reactjs python php]
   end
 
