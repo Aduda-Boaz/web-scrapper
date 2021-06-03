@@ -6,46 +6,57 @@ require 'httparty'
 class RemoteJobs < Scraper
   attr_accessor :url
 
-  def initialize(val_arr)
-    @val_arr = val_arr
-    @result = ['Job_title, Company, Skills, Posted_time, URL']
-    @url = 'https://remotive.io/remote-jobs?s='
-    @val_url = %w[ruby ruby-on-rails javascript reactjs python php]
+  def initialize(url)
+    @url = url
+  end
+  
+  def listings
+    listings_arr = []
+    fetch_listings.each { |listing| listings_arr << listing.css('h2.page-content-title').text }
+    listings_arr
+  end
+  
+  def remotes_title
+    job_title = []
+    remotes.each { |job| job_title << job.text }
+    job_title
   end
 
-  def start
-    # puts "Selected #{@val_arr.map { |n| @val_url[n] }.join(' & ')}"
-    @url = url_parser(@val_arr)
-    page_start_val = (1..5).to_a
-    scraping_page(page_start_val)
-    read('remote_io.csv', @result, 'jobs')
+  def listing_with_url
+    job_with_url = []
+    remotes.each do |job|
+      sub_url = job.css('div.list_title a').map { |link| link['href'] }
+      job = {
+        title: job.text
+        url: @url + sub_url[0]
+      }
+      job_with_url << job
+    end
+    job_with_url
   end
 
   private
 
-  def url_parser(arr)
-    @val_url + @val_arr.map { |n| @val_url[n].join(',') }
-  end
-
-  def job_list(arr)
-    arr.each do |card|
-      job_title = card.css('h3.job-listing-title').text.delete(',')
-      company = card.css('div.job-listing-footer').text.split('  ')[2].delete(',')
-      skills = card.css('div.job-listing-footer').text.split('  ')[4]
-      posted_time = card.css('div.job-listing-footer').text.split('  ')[3].delete(',').match(/\d+ \w+ ago/)
-      url = 'https://remotive.io/' + card.css('a')[0].attributes['href'].value
-      @result << "#{job_title},#{company},#{skills},#{posted_time},#{url}"
-    end
-  end
-
-  def page_scrap(pg_arr)
-    pg_arr.each do |page|
-      pg_url = @url + "&p=#{page}"
-      job_listings = parsing_page(page_url).css('div.job_listing-description')
-      break if job_listings.empty?
-      add_job(job_listings)
-      puts "#{@result.length - 1} jobs available..."     
-    end
+  def last_page
+    parsed_page(@url)
   end
   
+  def remotes
+    remotes = []
+    fetch_remotes.each do |job|
+      job_softwares = job.css('div.list__item')
+      job_softwares.each do |softwares|
+        remotes << softwares.css('div.list_title')
+      end
+    end
+    remotes
+  end
+
+  def fetch_remotes
+    last_page.css('div.list')
+  end
+
+  def fetch_listings
+    last_page.css('section.page-content_container')
+  end  
 end

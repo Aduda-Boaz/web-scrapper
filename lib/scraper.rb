@@ -4,15 +4,8 @@ require 'httparty'
 
 # Scraper class
 class Scraper
-  def read(file_name, arr, match)
-    File.read(file_name, arr.join("\n"))
-    puts '#{file_name} created in the root directory with #{arr.length - 1} #{match}.'
-  end
-  
-  private
-
-  def parsing_page(url)
-    Nokogiri::HTML(HTTParty.get(url).body)
-  end
-  
+  def parsed_page(url)
+    unparsed_page = HTTParty.get(url)
+    Nokogiri::HTML(unparsed_page)
+  end  
 end
