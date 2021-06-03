@@ -6,7 +6,7 @@ class InsScrap
   end
 
   def welcome
-    '\n Welcome to the scrapper. All info are scraped from #{@url}'
+    puts '\n Welcome to the scrapper. All info are scraped from #{@url}'
   end
 
   def instructions
@@ -20,10 +20,10 @@ class InsScrap
   end
 
   def end_process
-    'Thnk you for trusting the application'
+    puts 'Thank you for trusting the application'
   end
 
   def msg_err
-    'Sorry, kindly make the right selection'
+    puts 'Sorry, kindly make the right selection'
   end
 end

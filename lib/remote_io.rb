@@ -1,5 +1,5 @@
 require_relative './scraper'
-require_reletive './instructions'
+require_relative './instructions'
 
 # Get the remote jobs from the site
 class RemoteJobs < InsScrap

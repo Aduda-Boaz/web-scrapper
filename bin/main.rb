@@ -2,14 +2,14 @@
 require_relative '../lib/remote_io'
 
 url = 'https://remotive.io/'
-new_scrap = Scrap.new(url)
+new_scrap = Scraper
 
 puts new_scrap.welcome
 continue = true
 while continue
   puts new_scrap.instructions
   print 'Response: '
-  option = get.chomp
+  option = gets.chomp
 
   case option.to_i
   when 1
