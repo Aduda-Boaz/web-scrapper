@@ -3,9 +3,9 @@ require 'httparty'
 
 
 # Scraper class
-class Scraper
+module Scraper
   def parsed_page(url)
     unparsed_page = HTTParty.get(url)
     Nokogiri::HTML(unparsed_page)
-  end  
+  end
 end

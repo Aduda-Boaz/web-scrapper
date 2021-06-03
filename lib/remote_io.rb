@@ -1,10 +1,11 @@
 require_relative './scraper'
-require 'nokogiri'
-require 'httparty'
+require_reletive './instructions'
 
 # Get the remote jobs from the site
-class RemoteJobs < Scraper
+class RemoteJobs < InsScrap
   attr_reader :url
+
+  include Scraper
 
   def initialize(url)
     @url = url
