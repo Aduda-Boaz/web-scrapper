@@ -1,44 +1,37 @@
 #!/usr/bin/env ruby
-
 require_relative '../lib/remote_io'
 
-title = <<~ALL
+url = 'https://remotive.io/'
+new_scrap = Scrap.new(url)
 
-ALL
-puts title
-puts 'Welcome to the Remote Jobs Information'
-puts 'Select what you need (remotive.io)'
-text_input = ''
+puts new_scrap.welcome
+continue = true
+while continue
+  puts new_scrap.instructions
+  print 'Response: '
+  option = get.chomp
 
-loop do
-  text_input = gets.chomp
-  break if ['remotive.io'].include?(text_input)
-
-  puts 'Kindly enter the correct choice'
+  case option.to_i
+  when 1
+    sections = new_scrap.listings
+    puts 'There are #{sections.count} remote jobs available'
+    sections.each_with_index { |listing, i| puts "#{i + 1}. #{listing}" }
+  when 2
+    jobs  = new_scrap.job_title
+    puts 'There are #{jobs.count} that matches your category:'
+    jobs.each_with_index { |jobs, i| puts "#{i + 1}. #{jobs}" }
+  when 3
+    puts 'All the jobs with URL: \n'
+    new_scrap.job_with_url.each do |job_url|
+      job_url.each { |job, nurl| puts "#{job} #{nurl} " }
+      puts ''
+    end
+  else
+    puts new_scrap.msg_err
+  end
+  print "\n If you like to continue, press any key, or 'N' to quit"
+  if gets.chomp.upcase == 'N'
+    continue = false
+    puts new_scrap.end_process
+  end
 end
-
-site = nil
-
-if text_input == 'remotive.io'
-  url = 'https://remotive.io/remote-jobs'
-  site = RemoteJobs.new(url)
-  
-elsif
-  puts 'Welcome to the the web-scraper :)'
-  puts 'Search using the key words as follows'
-  puts '-----------------------------------------------------------------'
-  puts '0:ruby, 1: javascript, 2: ruby-on-rails, 3: reactjs, 4: python, 5: php'
-  puts '-----------------------------------------------------------------'
-  puts 'Please enter correct entry (eg. 124 for javascript, ruby-on-rails, and python)'
-
- num = nil
-
- loop do
-   num = gets.chomp.split('').map(&:to_i)
-   break if num.all? { |i| i <= 9 && i >= 0 }
-     puts 'Kindly enter a valid search key'
-   end
-   site = RemoteJobs.new(num) 
- end
-
- site.start
