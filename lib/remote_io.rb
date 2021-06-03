@@ -4,7 +4,7 @@ require 'httparty'
 
 # Get the remote jobs from the site
 class RemoteJobs < Scraper
-  attr_accessor :url
+  attr_reader :url
 
   def initialize(url)
     @url = url
@@ -27,7 +27,7 @@ class RemoteJobs < Scraper
     remotes.each do |job|
       sub_url = job.css('div.list_title a').map { |link| link['href'] }
       job = {
-        title: job.text
+        title: job.text,
         url: @url + sub_url[0]
       }
       job_with_url << job
