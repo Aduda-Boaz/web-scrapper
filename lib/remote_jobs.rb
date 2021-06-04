@@ -15,7 +15,7 @@ class InScrap < Scraper
     ttl_pages = ttl_pages_finder(parsed_page, 'div.searchCount-a11y-contrast-color')
     pages_append_urls = page_ending_urls(ttl_pages)
     scrap_per_page(pages_append_urls)
-    sorted_arr = sort_by_dates(@result)
+    sort_by_dates(@result)
     write('indeed_jobs.csv', @results, 'jobs')
   end
 
