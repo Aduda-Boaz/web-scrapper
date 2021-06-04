@@ -1,4 +1,4 @@
-# Web Scraping using Nokogiri and Watir.
+# Web Scraping using Nokogiri and HTTparty.
 
 <h2 align="center">Ruby-Capstone-Project</h2>
 
@@ -8,7 +8,7 @@ This project is all about web scrapping, geting data or information from a websi
 
 ## About Project
 
-The purpose of this project is to develop a scraper tool to achieve web-scrapping. This was achieved using Ruby, Open-uri, Watir and Nokogiri gem.
+The purpose of this project is to develop a scraper tool to achieve web-scrapping. This was achieved using Ruby, HTTparty and Nokogiri gem.
 
 - Watir (Web Application Testing In Ruby) helps in facilitating the writing of automated tests by  mimicing the behavior of a user interacting with a website.
 
@@ -16,18 +16,20 @@ The purpose of this project is to develop a scraper tool to achieve web-scrappin
 
 - The above Ruby Gems can be sources from [Ruby Gems](https://rubygems.org/)
 
-In this project, I created a scraper which extracts available remote jobs website (https://www.remote.io)
+In this project, I created a scraper which extracts available remote jobs at (https://www.indeed.com)
 
 ## Preview
+![screenshot](./scraping.png)
+
+![screenshot](./indeed.png)
 
 # Built With
 
- - Rubocop 1.4.2
- - Ruby 2.6.4
- - Watir 6.17.0
- - Colorize 0.8.1
- - Nokogiri 1.10.10
- - RSpec 3.10.0
+ - Rubocop
+ - Ruby
+ - HTTparty
+ - Nokogiri
+ - RSpec
 
  # Getting Started
 
@@ -49,14 +51,13 @@ git clone https://github.com/Aduda-Boaz/Capstone2-web-scrapper
 
    1. Clone the project into your local machine using `git clone` command or download the zip file.
    2. Go into the project directory using `cd directory name` command.
-   3. Install required gems by using  `gem install <gem name>` as listed in the [Gemfile](https://github.com/IjayAbby/Web-Scraper-Ruby-Capstone-Project/blob/feature_prerequisites/Gemfile).
-   
-    - gem install colorize
+   3. Install required gems by using  `gem install <gem name>` 
+
+    - gem install httpart
     - gem install nokogiri
     If it asks for permission use ``sudo gem install <gem name>``
-   4. From the root directory type `ruby bin/main.rb` command.
 
-   - [Installing ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver) go to Quick Installation and find your preffered OS and install it then run the command on line 5.
+   4. From the root directory type `ruby bin/main.rb` command.
 
    6. Give the project sometime to load then you will be able to see the results in your terminal. Enjoy and play around with the options either to quit or load next page.
 
