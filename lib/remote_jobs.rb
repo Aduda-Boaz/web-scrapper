@@ -1,32 +1,58 @@
-require_relative './lib/scraper'
+require_relative './scraper'
+require 'nokogiri'
+require 'httparty'
 
-class RemoteIo
-  attr_reader :max, :page
+class InScrap < Scraper
+  attr_accessor :url
 
-  def initialize(max, page)
-    @max = max
-    @page = page
-  end
-
-  def start
-    iteration_url = 'https://remotive.io/?live_jobs%5Bquery%5D=ruby%20&live_jobs%5Bmenu%5D%5Bcategory%5D=Software%20Development&pn=#{page}'
-    iteration_doc = ::OpenURI.open_uri(iteration_url)
-    iteration_unparsed_page = iteration_doc.read
-    iteration_parsed_page = Nokogiri::HTML(iteration_unparsed_page)
-    iteration_parsed_page.css('div.SerpJob-jobCard')
+  def initialize(url)
+    @url = url
+    @result = ['Title, Company, Location, Summary, URL, Day_posted']
   end
 
   def scrap
-    @list = []
-    iteration_rubys_list = start
-    iteration_rubys_list.each do |x|
-      rubys = { position: x.css('div.rubyposting-title-container').css('a.card-link').text,
-               url: x.css('div.rubyposting-title-container').css('a')[0].attributes['href'].value,
-               location: x.css('h3.rubyposting-subtitle').css('span.rubyposting-location').text,
-               company: x.css('h3.rubyposting-subtitle').css('span.rubyposting-company').text,
-               salary: x.css('div.SerpRuby-metaInfo').css('span.rubyposting-salary').text.delete_prefix!('Estimated: ')}
-      @list.push(rubys)
+    parsed_page = parsing_page(@url)
+    ttl_pages = ttl_pages_finder(parsed_page, 'div.searchCount-a11y-contrast-color')
+    pages_append_urls = page_ending_urls(ttl_pages)
+    scrap_per_page(pages_append_urls)
+    sorted_arr = sort_by_dates(@result)
+    write('indeed_jobs.csv', @results, 'jobs')
+  end
+
+  private
+
+  def ttl_pages_finder(parsed_page, page_css_property)
+    parsed_page.css(page_css_property).text[48..50].to_i
+  end
+
+  def page_ending_urls(ttl_pages)
+    (0..ttl_pages).to_a.select { |i| (i % 10).zero? }
+  end
+
+  def add_jobs(jobs_listings)
+    jobs_listings.each do |listing|
+      title = listing.css('a.jobtitle').text.gsub("\n", '').gsub(',', ' ')
+      company = listing.css('span.company').text.gsub("\n", '').gsub(',', ' ')
+      location = 'remote' # css is 'span.location' if needed
+      summary = listing.css('div.summary').text.gsub("\n", '').gsub(',', ' ')
+      key_url = listing.css('a')[0].attributes['href'].value[7..-1]
+      url = key_url.start_with?('?jk=') ? "https://www.indeed.com/viewjob#{key_url}" : ''
+      day_posted = listing.css('span.date').text.gsub("\n", '')
+      @result << "#{title},#{company},#{location},#{summary},#{url},#{day_posted}"
     end
-    @page += 1
+  end
+
+  def scrap_per_page(urls_arr)
+    urls_arr.each do |page|
+      each_page_url = @url + "&start=#{page}"
+      parsed_page = parsing_page(each_page_url)
+      jobs_listings = parsed_page.css('div.jobsearch-SerpJobCard')
+      add_jobs(jobs_listings)
+      puts "#{@result.length - 1} Jobs scraped from indeed.com..."
+    end
+  end
+
+  def sort_by_dates(arr)
+    [arr[0]] + arr[1..-1].sort_by { |str| str.split(',')[-1][0, 2].to_i }
   end
 end
