@@ -16,7 +16,7 @@ The purpose of this project is to develop a scraper tool to achieve web-scrappin
 
 - The above Ruby Gems can be sources from [Ruby Gems](https://rubygems.org/)
 
-In this project, I created a scraper which extracts football results from BBC Sports website (https://www.bbc.com/sport/football/premier-league)
+In this project, I created a scraper which extracts available remote jobs website (https://www.remote.io)
 
 ## Preview
 
