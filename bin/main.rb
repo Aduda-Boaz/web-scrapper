@@ -27,9 +27,9 @@ else
   puts 'Welcome to webscraper for indeed.com :)'
   puts 'The search keywords are as followed'
   puts '-----------------------------------------------------------------'
-  puts '0:ruby, 1: javascript,2: ruby-on-rails,3: reactjs,4: python,5: java, 6: php'
+  puts '0:ruby-on-rails'
   puts '-----------------------------------------------------------------'
-  puts 'Please enter correct combination from above list (eg. 0 for ruby)'
+  puts 'Please enter correct combination from above list (eg. 0 for ruby-on-rails)'
 
   num = nil
 
