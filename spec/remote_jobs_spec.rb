@@ -10,13 +10,3 @@ describe '#scraper' do
     expect(subject.send(:parsing_page, 'https://www.indeed.com/viewjob').text.instance_of?(String)).to be_truthy
   end
 end
-
-describe '#InScrap' do
-  let(:url) { 'https://www.indeed.com/jobs?q=Ruby+On+Rails&l=Remote&rbl=Remote&jlid=aaa2b906602aa8f5&sort=date' }
-  subject { InScrap.new(url) }
-  it 'creates indeed_jobs.csv at the root when #scrap in invoked' do
-    puts 'Testing if indeed.com scrapping works'
-    subject.scrap
-    expect(File.exist?(indeed_jobs.csv)).to be_truthy
-  end
-end

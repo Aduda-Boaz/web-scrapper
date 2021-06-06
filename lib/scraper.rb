@@ -3,8 +3,8 @@ require 'httparty'
 
 class Scraper
   def write(file_name, arr, subject)
-    File.write(file_name, arr.join("\n"))
-    puts "#{file_name} file created at the root #{arr.length - 1} #{subject}."
+    File.write(file_name, arr)
+    puts "#{file_name} file created at the root #{arr} #{subject}."
   end
 
   private
