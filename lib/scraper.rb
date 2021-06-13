@@ -1,10 +1,11 @@
 require 'nokogiri'
 require 'httparty'
+require 'pp'
 
 class Scraper
   def write(file_name, arr, subject)
     File.write(file_name, arr)
-    puts "#{file_name} file created at the root #{arr} #{subject}."
+    pp "#{file_name} file created at the root #{arr} #{subject}."
   end
 
   private

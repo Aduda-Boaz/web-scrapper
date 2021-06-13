@@ -29,3 +29,8 @@ describe '#inscrap' do
     expect(File.exist?('indeed_jobs.csv')).to be_truthy
   end
 end
+
+describe "a specification" do
+  
+end
+
