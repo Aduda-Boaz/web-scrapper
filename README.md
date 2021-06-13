@@ -27,6 +27,7 @@ In this project, I created a scraper which extracts available remote jobs at (<h
 - HTTparty
 - Nokogiri
 - RSpec
+- PP
 
 ## Getting Started
 
