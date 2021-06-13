@@ -7,7 +7,7 @@ class InScrap < Scraper
 
   def initialize(url)
     @url = url
-    @output = ['Title, Company, Location, Summary, URL, Date']
+    @output = ['Title, Company, Location, Summary, URL, Date \n']
   end
 
   def scrap

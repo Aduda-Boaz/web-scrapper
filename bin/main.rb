@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/remote_jobs'
-require_relative '../lib/remote_io'
 
 header = <<~WELCOME
 
@@ -24,10 +23,7 @@ case input
 when 'indeed'
   url = 'https://www.indeed.com/jobs?q=developer+remote&l=Remote'
 
-  site = InScrap.new(url)
-
-when 'remote.io'
-  puts 'Welcome to remote.io scraper:)'
+  puts 'Welcome to indeed.com scraper:)'
   puts 'See the search key words as follows'
   puts '-----------------------------------------------------------------'
   puts '0:ruby, 1: javascript,2: ruby-on-rails,3: reactjs,4: python'
@@ -42,7 +38,7 @@ when 'remote.io'
     puts 'Sorry, please enter a valid combination'
   end
 
-  site = RemoteIo.new(num)
+  site = InScrap.new(url)
 end
 
 site.scrap
