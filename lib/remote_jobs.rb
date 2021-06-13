@@ -7,7 +7,7 @@ class InScrap < Scraper
 
   def initialize(url)
     @url = url
-    @result = ['Title, Company, Location, Summary, URL, Day_posted']
+    @output = ['Title, Company, Location, Summary, URL, Date']
   end
 
   def scrap
@@ -15,8 +15,8 @@ class InScrap < Scraper
     ttl_pages = ttl_pages_finder(parsed_page, 'div.searchCount-a11y-contrast-color')
     pages_append_urls = page_ending_urls(ttl_pages)
     scrap_per_page(pages_append_urls)
-    sort_by_dates(@result)
-    write('indeed_jobs.csv', @results, 'jobs')
+    sort_by_dates(@output)
+    write('indeed_jobs.csv', @output, 'jobs')
   end
 
   private
@@ -37,8 +37,8 @@ class InScrap < Scraper
       summary = listing.css('div.summary').text.gsub("\n", '').gsub(',', ' ')
       key_url = listing.css('a')[0].attributes['href'].value[7..-1]
       url = key_url.start_with?('?jk=') ? "https://www.indeed.com/viewjob#{key_url}" : ''
-      day_posted = listing.css('span.date').text.gsub("\n", '')
-      @result << "#{title},#{company},#{location},#{summary},#{url},#{day_posted}"
+      date = listing.css('span.date').text.gsub("\n", '')
+      @output << "#{title},#{company},#{location},#{summary},#{url},#{date}"
     end
   end
 
@@ -48,7 +48,7 @@ class InScrap < Scraper
       parsed_page = parsing_page(each_page_url)
       jobs_listings = parsed_page.css('div.jobsearch-SerpJobCard')
       add_jobs(jobs_listings)
-      puts "#{@result.length - 1} Jobs scraped from indeed.com..."
+      puts "#{@output.length - 1} Jobs scraped from indeed.com..."
     end
   end
 
