@@ -10,8 +10,6 @@ This project is all about web scrapping, geting data or information from a websi
 
 The purpose of this project is to develop a scraper tool to achieve web-scrapping. This was achieved using Ruby, HTTparty and Nokogiri gem.
 
-- Watir (Web Application Testing In Ruby) helps in facilitating the writing of automated tests by  mimicing the behavior of a user interacting with a website.
-
 - Nokogiri is an HTML, XML, SAX, and Reader parser.
 
 - The above Ruby Gems can be sources from [Ruby Gems](https://rubygems.org/)
@@ -51,7 +49,7 @@ git clone https://github.com/Aduda-Boaz/Capstone2-web-scrapper
 
    1. Clone the project into your local machine using `git clone` command or download the zip file.
    2. Go into the project directory using `cd directory name` command.
-   3. Install required gems by using  `gem install <gem name>` 
+   3. Install required gems by using  `bundle` 
 
     - gem install httpart
     - gem install nokogiri
@@ -59,7 +57,7 @@ git clone https://github.com/Aduda-Boaz/Capstone2-web-scrapper
 
    4. From the root directory type `ruby bin/main.rb` command.
 
-   6. Give the project sometime to load then you will be able to see the results in your terminal. Enjoy and play around with the options either to quit or load next page.
+   6. Give the project sometime to load then you will be able to see the results in your terminal. Enjoy the scraping
 
    7. Run command `rspec <file name>`  to test the various methods in the classes.
 

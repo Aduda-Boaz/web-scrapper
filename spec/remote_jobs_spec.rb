@@ -4,6 +4,7 @@ require_relative '../lib/remote_io'
 require_relative '../lib/scraper'
 require 'nokogiri'
 require 'httparty'
+require 'pp'
 
 describe '#scraper' do
   subject { Scraper.new }

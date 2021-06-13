@@ -1,13 +1,14 @@
 require_relative './scraper'
 require 'nokogiri'
 require 'httparty'
+require 'pp'
 
 class InScrap < Scraper
   attr_accessor :url
 
   def initialize(url)
     @url = url
-    @output = ['Title, Company, Location, Summary, URL, Date \n']
+    @output = ['Title, Company, Location, Summary, URL, Date']
   end
 
   def scrap
