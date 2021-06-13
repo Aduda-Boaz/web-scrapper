@@ -1,6 +1,5 @@
 require_relative 'spec_helper'
 require_relative '../lib/remote_jobs'
-require_relative '../lib/remote_io'
 require_relative '../lib/scraper'
 require 'nokogiri'
 require 'httparty'
@@ -16,6 +15,11 @@ describe '#scraper' do
     subject.write('testing.csv', [1, 2, 3, 4, 5], 'tests')
     expect(File.exist?('testing.csv')).to be_truthy
   end
+
+  it 'checks if the file is written with a false value' do
+    subject.write('testing.csv', [1, 2, 3, 4, 5], 'tests')
+    expect(File.exist?('testing.csv')).not_to eql(false)
+  end
 end
 
 describe '#inscrap' do
@@ -27,5 +31,11 @@ describe '#inscrap' do
     puts 'Testing if site scraping works for indeed.com'
     subject.scrap
     expect(File.exist?('indeed_jobs.csv')).to be_truthy
+  end
+
+  it 'should check if indeed_jobs.csv is created without false values' do
+    puts 'Testing if site scraping works for indeed.com'
+    subject.scrap
+    expect(File.exist?('indeed_jobs.csv')).not_to eql(false)
   end
 end
