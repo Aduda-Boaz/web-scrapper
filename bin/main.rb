@@ -26,9 +26,9 @@ when 'indeed'
 
   pp 'Welcome to indeed.com scraper:)'
   pp 'See the search key words as follows'
-  pp '-----------------------------------------------------------------'
+  pp '*****************************************************************'
   pp '0:ruby, 1: javascript,2: ruby-on-rails,3: reactjs,4: python'
-  pp '-----------------------------------------------------------------'
+  pp '*****************************************************************'
   pp 'Please enter combination from the list (eg. 124 for javascript, ruby-on-rails, and python)'
 
   num = nil
